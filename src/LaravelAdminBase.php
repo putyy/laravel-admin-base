@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Pt\LaravelAdminBase;
 
@@ -8,13 +9,13 @@ class LaravelAdminBase extends Extension
 {
     public $name = 'admin-base';
 
-    public $views = __DIR__.'/../resources/views';
+    public $views = __DIR__ . '/../resources/views';
 
-    public $assets = __DIR__.'/../resources/assets';
+    public $assets = __DIR__ . '/../resources/assets';
 
     public $menu = [
         'title' => 'LaravelAdminBase',
-        'path'  => 'admin-base',
-        'icon'  => 'fa-gears',
+        'path' => 'admin-base',
+        'icon' => 'fa-gears',
     ];
 }

@@ -38,7 +38,7 @@ class CommonAction extends RowAction
     {
         try {
             $data = $request->post('_data');
-            $data = $data ? json_decode($data,true) : [];
+            $data = $data ? json_decode($data, true) : [];
             if (empty($data)) {
                 return $this->response()->success('操作成功')->refresh();
             }

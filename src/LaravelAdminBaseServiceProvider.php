@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Pt\LaravelAdminBase;
 
@@ -11,8 +12,8 @@ class LaravelAdminBaseServiceProvider extends ServiceProvider
      */
     public function boot(LaravelAdminBase $extension)
     {
-        if (! LaravelAdminBase::boot()) {
-            return ;
+        if (!LaravelAdminBase::boot()) {
+            return;
         }
 
         if ($views = $extension->views()) {

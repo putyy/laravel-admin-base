@@ -48,7 +48,7 @@ class RoleController extends LaravelAdminBaseController
             if ($actions->row->slug == 'administrator') {
                 $actions->disableDelete();
                 $actions->disableEdit();
-            }else{
+            } else {
                 $actions->add(new JumpAction('/admin/auth-rewrite/role-permissions-detail/' . $actions->row->id, '权限'));
             }
         });
@@ -123,7 +123,7 @@ class RoleController extends LaravelAdminBaseController
         });
     }
 
-    protected function arrayGroupBy(array $arr, string $key) : array
+    protected function arrayGroupBy(array $arr, string $key): array
     {
         $grouped = array();
         foreach ($arr as $k => $value) {

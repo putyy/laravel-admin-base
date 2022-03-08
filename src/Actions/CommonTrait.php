@@ -18,9 +18,9 @@ trait CommonTrait
     public function handleChild(Model $model, Request $request): void
     {
         $callback = $request->post('_callback');
-        if($callback){
-            list($class,$func) = explode('_',$callback);
-            if(class_exists($class) && method_exists($class, $func)){
+        if ($callback) {
+            list($class, $func) = explode('_', $callback);
+            if (class_exists($class) && method_exists($class, $func)) {
                 $class::$func($model, $request);
             }
         }

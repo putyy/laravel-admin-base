@@ -2,7 +2,10 @@
     "name": "putyy/laravel-admin-base",
     "description": "laravel-admin基础功能封装...",
     "type": "library",
-    "keywords": ["laravel-admin", "laravel-admin-base"],
+    "keywords": [
+        "laravel-admin",
+        "laravel-admin-base"
+    ],
     "homepage": "https://github.com/putyy/admin-base",
     "license": "MIT",
     "authors": [

@@ -61,7 +61,7 @@ abstract class BaseController extends AdminController
     public static function success(array $data = null, string $msg = 'ok'): JsonResponse
     {
         return response()->json([
-            'code' => 0,
+            'code' => 1,
             'msg' => $msg,
             'data' => $data
         ]);
@@ -76,7 +76,7 @@ abstract class BaseController extends AdminController
     public static function fail(string $msg, array $data = null): JsonResponse
     {
         return response()->json([
-            'code' => 1,
+            'code' => 0,
             'msg' => $msg,
             'data' => $data
         ]);

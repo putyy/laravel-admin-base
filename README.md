@@ -1,16 +1,24 @@
 laravel-admin 基础类封装
 ======
+
+## 安装
+```shell
+composer require putyy/laravel-admin-base
+```
+
+## 使用
+
 ### Controller
 
-> AdminBaseController 继承即可使用
-
+> LaravelAdminBaseController 继承即可使用
 
 ### Actions
 
 > DeleteAction、LockAction 结合自身项目自定义action继承 实现对应的操作
-> 
+>
 > 如下：
-> 
+>
+
 ```php
 <?php
 declare(strict_types=1);
@@ -38,7 +46,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Controllers;
 
-class TestController extends \Pt\AdminBase\Http\Controllers\BaseController
+class TestController extends \Pt\AdminBase\Http\Controllers\LaravelAdminBaseController
 {
     // ...
     protected function grid()
@@ -53,17 +61,18 @@ class TestController extends \Pt\AdminBase\Http\Controllers\BaseController
 }
 ```
 
-
 ### 权限展示重写
+
 ![img.png](img.png)
 
 > 1. admin_permissions表添加slug_group字段
-> 
->   ALTER TABLE `admin_permissions`
->       ADD COLUMN `slug_group` varchar(100) NOT NULL AFTER `slug`;
-> 
+     >
+     >   ALTER TABLE `admin_permissions`
+     > ADD COLUMN `slug_group` varchar(100) NOT NULL AFTER `slug`;
+>
 > 2. 添加路由
-> 
+>
+
 ```php
 <?php
 Route::group([
