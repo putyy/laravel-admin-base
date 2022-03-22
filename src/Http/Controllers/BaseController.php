@@ -7,8 +7,9 @@ use Encore\Admin\Grid;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Encore\Admin\Controllers\AdminController;
+use Pt\LaravelAdminBase\ShowColumnInterface;
 
-abstract class BaseController extends AdminController
+abstract class BaseController extends AdminController implements ShowColumnInterface
 {
     /**
      * @var string
@@ -40,11 +41,25 @@ abstract class BaseController extends AdminController
     abstract function getVideoUrl(string $url): string;
 
     /**
-     * 是否删除
+     * 返回音频URL
+     * @param string $url
+     * @return string
+     */
+    abstract function getAudioUrl(string $url): string;
+
+    /**
+     * 是否锁定
      * @param int $lock
      * @return bool
      */
-    abstract function isLock($lock): bool;
+    abstract function isLock(int $lock): bool;
+
+    /**
+     * 返回文件URL
+     * @param string $url
+     * @return string
+     */
+    abstract function getFileUrl(string $url): string;
 
     /**
      * 可以更具环境返回错误信息
@@ -141,31 +156,50 @@ abstract class BaseController extends AdminController
     {
         switch ($type) {
             case 'i':
+                // 图片
                 return function ($value) {
-                    return "<img src='{$this->getImgUrl($value)}' style='height: 100px;'>";
+                    return "<img src='{$this->getImgUrl($value)}' style='width: 10rem;height:auto;'>";
+                };
+            case 'a':
+                 // 音频
+                return function ($video) use ($other) {
+                    return "<audio controls><source src='{$this->getAudioUrl($video)}' type='video/mp3'></audio>";
                 };
             case 'v':
+                // 视频
                 return function ($video) use ($other) {
                     $other && $cover_img = $this->getImgUrl($other);
                     $video = $this->getVideoUrl($video);
-                    return "<video controls style='height: 120px;' " . ($other ? "poster='{$cover_img}'" : "") . "><source src='{$video}' type='video/mp4'></video>";
+                    return "<video controls style='width: 10rem;height:auto;' " . ($other ? "poster='{$cover_img}'" : "") . "><source src='{$video}' type='video/mp4'></video>";
                 };
             case 'l':
+                // 是否锁定
                 return function ($value) {
-                    return $this->isLock($value) ? '正常' : '<span style="color: red;">锁定</span>';
+                    return $this->isLock($value) ? '<span style="color: red;">锁定</span>' : '正常';
                 };
             case 't':
+                // 时间
                 return function ($value) {
                     return date('Y-m-d H:i:s', $value);
                 };
             case 'm':
+                // 金额
                 return function ($value) {
                     return bcmul((string)$value, '0.01', 2);
                 };
             default:
                 return function ($value) {
-                    return '无';
+                    return empty($value) ? '无' : $value;
                 };
+        }
+    }
+
+    protected function formatTime(Grid $grid, array $data = []): void
+    {
+        foreach ($data as $name => $title) {
+            $grid->column($name, __($title))->display(function ($value) {
+                return $value ? date('Y-m-d H:i:s', (int)$value) : '';
+            });
         }
     }
 

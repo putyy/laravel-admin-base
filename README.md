@@ -2,6 +2,7 @@ laravel-admin 基础类封装
 ======
 
 ## 安装
+
 ```shell
 composer require putyy/laravel-admin-base
 ```
@@ -10,7 +11,25 @@ composer require putyy/laravel-admin-base
 
 ### Controller
 
-> LaravelAdminBaseController 继承即可使用
+> 1. LaravelAdminBaseController 继承即可使用
+> 2. 继承BaseController 根据项目实现对应方法
+> 
+> 重点: 由于laravel-admin对display的特别处理，需要在对应的model实现 \Pt\LaravelAdminBase\ShowColumnInterface 接口才能调用formatColumn
+> 
+> 示例(更多用法看源码):
+```php
+protected function grid()
+{
+    ...
+    $grid->column('is_lock', __('Is lock'))->display($this->formatColumn('l'));
+    $grid->column('img_url', __('Img url'))->display($this->formatColumn('a'));
+    $this->formatTime($grid, [
+        'create_time'=>'创建时间',
+        'update_time'=>'更新时间',
+    ]);
+    ...
+}
+```
 
 ### Actions
 

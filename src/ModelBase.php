@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Pt\LaravelAdminBase\Http\Controllers;
+namespace Pt\LaravelAdminBase;
 
-class LaravelAdminBaseController extends BaseController
+use Encore\Admin\Extension;
+
+class ModelBase implements ShowColumnInterface
 {
     /**
      * 返回图片URL
@@ -53,14 +55,5 @@ class LaravelAdminBaseController extends BaseController
     public function isLock(int $lock): bool
     {
         return $lock === 2;
-    }
-
-    /**
-     * 可以更具环境返回错误信息
-     * @return string
-     */
-    public static function getFailMsg(): string
-    {
-        return static::$funcCallErrString;
     }
 }
